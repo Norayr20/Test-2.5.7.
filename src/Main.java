@@ -1,20 +1,17 @@
 public class Main {
     public static void main(String[] args) {
-        String[] spamKeywords = {"spam", "buy", "sale"};
+        String[] spamKeywords = {"spam", "advertisement"};
         SpamAnalyzer spamAnalyzer = new SpamAnalyzer(spamKeywords);
 
-        TooLongTextAnalyzer tooLongAnalyzer = new TooLongTextAnalyzer(100);
+        NegativeTextAnalyzer negativeTextAnalyzer = new NegativeTextAnalyzer();
 
-        String text1 = "This is a spam message";
-        String text2 = "Check out our latest sale!";
-        String text3 = "This is a normal message with normal length";
+        TooLongTextAnalyzer tooLongTextAnalyzer = new TooLongTextAnalyzer(10);
 
-        System.out.println("Text 1: " + spamAnalyzer.processText(text1));
-        System.out.println("Text 2: " + spamAnalyzer.processText(text2));
-        System.out.println("Text 3: " + spamAnalyzer.processText(text3));
+        TextAnalyzer[] analyzers = {spamAnalyzer, negativeTextAnalyzer, tooLongTextAnalyzer};
 
-        System.out.println("Text 1: " + tooLongAnalyzer.processText(text1));
-        System.out.println("Text 2: " + tooLongAnalyzer.processText(text2));
-        System.out.println("Text 3: " + tooLongAnalyzer.processText(text3));
+        String testText = "This is a test text :(";
+
+        Label overallLabel = tooLongTextAnalyzer.checkLabels(analyzers, testText);
+        System.out.println("Overall label for the text: " + overallLabel);
     }
 }
