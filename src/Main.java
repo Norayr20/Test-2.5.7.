@@ -1,20 +1,20 @@
 public class Main {
     public static void main(String[] args) {
-            String[] spamKeywords = {"spam", "buy now", "click here"};
-            SpamAnalyzer spamAnalyzer = new SpamAnalyzer(spamKeywords);
+        String[] spamKeywords = {"spam", "buy", "sale"};
+        SpamAnalyzer spamAnalyzer = new SpamAnalyzer(spamKeywords);
 
-            NegativeTextAnalyzer negativeTextAnalyzer = new NegativeTextAnalyzer();
+        TooLongTextAnalyzer tooLongAnalyzer = new TooLongTextAnalyzer(100);
 
-            TooLongTextAnalyzer tooLongTextAnalyzer = new TooLongTextAnalyzer(50);
+        String text1 = "This is a spam message";
+        String text2 = "Check out our latest sale!";
+        String text3 = "This is a normal message with normal length";
 
-            String text1 = "This is a great product!";
-            String text2 = "Buy now and get 50% off!";
-            String text3 = "I'm feeling 😦 today.";
-            String text4 = "This comment is way too long, it should be shortened.";
+        System.out.println("Text 1: " + spamAnalyzer.processText(text1));
+        System.out.println("Text 2: " + spamAnalyzer.processText(text2));
+        System.out.println("Text 3: " + spamAnalyzer.processText(text3));
 
-            System.out.println("Text 1: " + spamAnalyzer.processText(text1));
-            System.out.println("Text 2: " + spamAnalyzer.processText(text2));
-            System.out.println("Text 3: " + negativeTextAnalyzer.processText(text3));
-            System.out.println("Text 4: " + tooLongTextAnalyzer.processText(text4));
-        }
+        System.out.println("Text 1: " + tooLongAnalyzer.processText(text1));
+        System.out.println("Text 2: " + tooLongAnalyzer.processText(text2));
+        System.out.println("Text 3: " + tooLongAnalyzer.processText(text3));
     }
+}

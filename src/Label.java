@@ -1,13 +1,5 @@
 import java.util.Arrays;
 
-public enum Label {
-    SPAM, NEGATIVE_TEXT, TOO_LONG, OK
-}
-
-interface TextAnalyzer {
-    Label processText(String text);
-}
-
 class SpamAnalyzer implements TextAnalyzer {
     private String[] keywords;
 
@@ -21,16 +13,6 @@ class SpamAnalyzer implements TextAnalyzer {
             if (text.contains(keyword)) {
                 return Label.SPAM;
             }
-        }
-        return Label.OK;
-    }
-}
-
-class NegativeTextAnalyzer implements TextAnalyzer {
-    @Override
-    public Label processText(String text) {
-        if (text.contains("😦") || text.contains("😔") || text.contains(":|")) {
-            return Label.NEGATIVE_TEXT;
         }
         return Label.OK;
     }
