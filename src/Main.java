@@ -1,17 +1,25 @@
+package ForTest;
+
 public class Main {
+    private static String[] spamWords = {"shit", "ass", "fuck"};
+    private static int maxLength = 200;
+
+    public static Label checkLabels(TextAnalyzer[] analyzers, String text) {
+        for (TextAnalyzer analyzer : analyzers) {
+            if(analyzer.processText(text) != Label.OK){
+                return analyzer.processText(text);
+            }
+        }
+        return Label.OK;
+    }
+
     public static void main(String[] args) {
-        String[] spamKeywords = {"spam", "advertisement"};
-        SpamAnalyzer spamAnalyzer = new SpamAnalyzer(spamKeywords);
-
-        NegativeTextAnalyzer negativeTextAnalyzer = new NegativeTextAnalyzer();
-
-        TooLongTextAnalyzer tooLongTextAnalyzer = new TooLongTextAnalyzer(10);
-
-        TextAnalyzer[] analyzers = {spamAnalyzer, negativeTextAnalyzer, tooLongTextAnalyzer};
-
-        String testText = "This is a test text :(";
-
-        Label overallLabel = tooLongTextAnalyzer.checkLabels(analyzers, testText);
-        System.out.println("Overall label for the text: " + overallLabel);
+        String text = "woxmqomxfukuck:(";
+        TextAnalyzer[] textAnalyzers = {
+                new ForTest.SpamAnalyzer(spamWords),
+                new ForTest.NegativeTextAnalyzer(),
+                new ForTest.TooLongTextAnalyzer(maxLength),
+        };
+        System.out.println(checkLabels(textAnalyzers,text));
     }
 }
